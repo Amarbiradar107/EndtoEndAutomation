@@ -1,8 +1,11 @@
-import pytest
-
-assert 2 == 2
-print("hello world")
 
 
-def test_f():
-    print("hello world")
+
+class TestExample:
+
+    def test_url_test(self,setup):
+        driver = setup
+        actual_url = driver.current_url
+        assert actual_url == "https://sauce-demo.myshopify.com/"
+        print("url validation passed")
+

@@ -1,37 +1,33 @@
-# import pytest
-# from selenium import webdriver
-# from selenium.webdriver.common.by import By
-#
-# @pytest.fixture(params=["chrome","firefox","edge"])
-# def driver(request):
-#
-#     browser = request.param
-#
-#     if browser == "chrome":
-#         options = webdriver.ChromeOptions()
-#         driver = webdriver.Remote(
-#             command_executor="http://selenium-hub:4444/wd/hub",
-#             options=options
-#         )
-#
-#     elif browser == "firefox":
-#         options = webdriver.FirefoxOptions()
-#         driver = webdriver.Remote(
-#             command_executor="http://selenium-hub:4444/wd/hub",
-#             options=options
-#         )
-#
-#     elif browser == "edge":
-#         options = webdriver.EdgeOptions()
-#         driver = webdriver.Remote(
-#             command_executor="http://selenium-hub:4444/wd/hub",
-#             options=options
-#         )
-#
-#     yield driver
-#     driver.quit()
-#
-#
-# def test_google(driver):
-#     driver.get("https://www.google.com")
-#     assert "Google" in driver.title
+import pytest
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+import configparser
+
+config = configparser.ConfigParser()
+config.read('configfiles/config.ini')
+
+base_url = config["environment"]["base_url"]
+
+@pytest.fixture(scope="function")
+def setup(request):
+    # if browser == "chrome":
+    #     driver = webdriver.Chrome()
+    # elif browser == "firefox":
+    #     driver = webdriver.Firefox()
+    # elif browser == "edge":
+    #     driver = webdriver.Edge()
+    # driver.maximize_window()
+    options = Options()
+    # options.add_argument("--log-level=3")
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    # username, password = request.param
+    driver = webdriver.Chrome(options=options)
+    driver.maximize_window()
+    driver.get(base_url)
+    # login_page = LoginPage(driver)
+    # login_page.login(username, password)
+
+    yield driver
+    driver.quit()

@@ -1,6 +1,5 @@
 pipeline {
-    agent any
-
+    agent master
 
     stages {
         stage('Checkout') {
