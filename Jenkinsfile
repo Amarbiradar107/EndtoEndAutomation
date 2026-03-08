@@ -1,5 +1,7 @@
 pipeline {
-    agent master
+    agent {
+        label 'master'
+    }
 
     stages {
         stage('Checkout') {
@@ -10,8 +12,9 @@ pipeline {
 
         stage('Build image') {
             steps {
-                sh 'docker-compose up'
-                sh 'docker build -t selenium-pytest .'
+                sh ''' docker-compose up
+                       docker build -t selenium-pytest .
+                '''
             }
         }
 
@@ -40,7 +43,7 @@ pipeline {
                 sh '''
                     docker docker system prune -a
                     docker-compose down
-                    '''
+                '''
         }
 
 //            agent{
