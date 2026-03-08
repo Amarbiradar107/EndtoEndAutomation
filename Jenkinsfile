@@ -12,8 +12,10 @@ pipeline {
 
         stage('Build image') {
             steps {
-                sh ''' docker-compose up
+                sh '''
+
                        docker build -t selenium-pytest .
+                       docker-compose up
                 '''
             }
         }
@@ -39,12 +41,12 @@ pipeline {
         stage('Post Test Execution') {
 
 
-        steps {
-                sh '''
-                    docker docker system prune -a
-                    docker-compose down
-                '''
-        }
+            steps {
+                    sh '''
+                        docker docker system prune -a
+                        docker-compose down
+                    '''
+            }
 
 //            agent{
 //                docker{
