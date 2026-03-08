@@ -1,77 +1,49 @@
-services:
-  jenkins-docker:
-    image: docker:dind
-    container_name: jenkins-docker
-    privileged: true
-    environment:
-      - DOCKER_TLS_CERTDIR=/certs
-    volumes:
-      - jenkins-docker-certs:/certs/client
-      - jenkins-data:/var/jenkins_home
-    ports:
-      - "2376:2376"
-    networks:
-      jenkins:
-        aliases:
-          - docker
-    command: --storage-driver overlay2
+version: "3"
 
-  my-jenkins:
-    image: my-jenkins
-    build:
-      context: .
-    container_name: my-jenkins
-    restart: on-failure
-    environment:
-      - DOCKER_HOST=tcp://docker:2376
-      - DOCKER_CERT_PATH=/certs/client
-      - DOCKER_TLS_VERIFY=1
-    volumes:
-      - jenkins-data:/var/jenkins_home
-      - jenkins-docker-certs:/certs/client:ro
+services:
+  jenkins:
+    image: jenkins/jenkins:latest
+    user: root
     ports:
       - "8080:8080"
       - "50000:50000"
-    networks:
-      - jenkins
-  selenium-hub:
-    image: selenium/hub:4
-    container_name: selenium-hub
+    volumes:
+      - ./Volume/Master:/var/jenkins_home
+
+  selenium-hud:
+    image: selenium/hub:4.41.0
     ports:
       - "4444:4444"
+      - "4442:4442"
+      - "4443:4443"
 
   chrome:
-    image: selenium/node-chrome:4
-    depends_on:
-      - selenium-hub
+    image: selenium/node-chrome:latest
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_EVENT_BUS_HOST=selenium-hud
+    depends_on:
+      - selenium-hud
+    shm_size: "2g"
 
   firefox:
-    image: selenium/node-firefox:4
-    depends_on:
-      - selenium-hub
+    image: selenium/node-firefox:latest
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_EVENT_BUS_HOST=selenium-hud
+    depends_on:
+      - selenium-hud
+    shm_size: "2g"
 
   edge:
-    image: selenium/node-edge:4
-    depends_on:
-      - selenium-hub
+    image: selenium/node-edge:latest
     environment:
-      - SE_EVENT_BUS_HOST=selenium-hub
-
-  test-runner:
-    build: .
+      - SE_EVENT_BUS_PUBLISH_PORT=4442
+      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+      - SE_EVENT_BUS_HOST=selenium-hud
     depends_on:
-      - selenium-hub
-    environment:
-      - SELENIUM_GRID_URL=http://selenium-hub:4444/wd/hub
+      - selenium-hud
+    shm_size: "2g"
 
-networks:
-  jenkins:
-    driver: bridge
-
-volumes:
-  jenkins-docker-certs:
-  jenkins-data:

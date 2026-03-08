@@ -11,6 +11,7 @@ pipeline {
 
         stage('Build image') {
             steps {
+                sh 'docker-compose up'
                 sh 'docker build -t selenium-pytest .'
             }
         }
@@ -33,8 +34,16 @@ pipeline {
                 '''
             }
         }
-//        stage('Post Test Execution') {
-//
+        stage('Post Test Execution') {
+
+
+        steps {
+                sh '''
+                    docker docker system prune -a
+                    docker-compose down
+                    '''
+        }
+
 //            agent{
 //                docker{
 //                    image 'amazon/aws-cli:latest'
@@ -61,6 +70,6 @@ pipeline {
 //                    }
 //
 //            }
-//        }
+        }
     }
 }
