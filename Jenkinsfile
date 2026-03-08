@@ -15,7 +15,6 @@ pipeline {
                 bat '''
 
                        docker build -t selenium-pytest .
-//                       docker-compose up
                 '''
             }
         }
