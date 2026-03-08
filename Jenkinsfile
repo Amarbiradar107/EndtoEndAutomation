@@ -15,7 +15,7 @@ pipeline {
                 bat '''
 
                        docker build -t selenium-pytest .
-                       docker-compose up
+//                       docker-compose up
                 '''
             }
         }
@@ -38,15 +38,15 @@ pipeline {
                 '''
             }
         }
-        stage('Post Test Execution') {
-
-
-            steps {
-                    sh '''
-                        docker system prune -a
-
-                    '''
-            }
+//        stage('Post Test Execution') {
+//
+//
+//            steps {
+//                    sh '''
+//                        docker system prune -a
+//
+//                    '''
+//            }
 
 //            agent{
 //                docker{
