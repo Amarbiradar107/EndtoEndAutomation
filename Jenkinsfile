@@ -43,8 +43,8 @@ pipeline {
 
             steps {
                     sh '''
-                        docker docker system prune -a
-                        docker-compose down
+                        docker system prune -a
+
                     '''
             }
 
