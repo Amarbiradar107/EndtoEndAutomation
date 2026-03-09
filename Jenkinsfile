@@ -1,8 +1,8 @@
 pipeline {
-    agent {
-        label 'master'
+     docker {
+        image 'jenkins-docker'
         args '-v /var/run/docker.sock:/var/run/docker.sock'
-    }
+     }
 
     stages {
         stage('Checkout') {
