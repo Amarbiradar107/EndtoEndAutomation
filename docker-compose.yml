@@ -17,10 +17,10 @@ services:
     command: --storage-driver overlay2
 
   my-jenkins:
-    image: my-jenkins
+    image: jenkins/jenkins:2.553
     build:
       context: .
-    container_name: my-jenkins
+    container_name: jenkins/jenkins:lts-jdk21
     restart: on-failure
     environment:
       - DOCKER_HOST=tcp://docker:2376
@@ -45,7 +45,7 @@ services:
       - jenkins  # ← added
 
   chrome:
-    image: selenium/node-chrome:4.41.0  # ← pinned
+    image: selenium/node-chrome:145.0-chromedriver-145.0-grid-4.41.0-20260222  # ← pinned
     environment:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
@@ -57,7 +57,7 @@ services:
       - jenkins  # ← added
 
   firefox:
-    image: selenium/node-firefox:4.41.0  # ← pinned
+    image: selenium/node-firefox:128.0-geckodriver-0.36-grid-4.41.0-20260222  # ← pinned
     environment:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
@@ -68,17 +68,17 @@ services:
     networks:
       - jenkins  # ← added
 
-  edge:
-    image: selenium/node-edge:4.41.0  # ← pinned
-    environment:
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_EVENT_BUS_HOST=selenium-hud
-    depends_on:
-      - selenium-hud
-    shm_size: "2g"
-    networks:
-      - jenkins  # ← added
+#  edge:
+#    image: selenium/node-edge:4.41.0  # ← pinned
+#    environment:
+#      - SE_EVENT_BUS_PUBLISH_PORT=4442
+#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+#      - SE_EVENT_BUS_HOST=selenium-hud
+#    depends_on:
+#      - selenium-hud
+#    shm_size: "2g"
+#    networks:
+#      - jenkins  # ← added
 
 networks:
   jenkins:
