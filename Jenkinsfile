@@ -3,14 +3,14 @@ pipeline {
     
     stages {
         stage('Checkout') {
-            agent { label 'windows-agent' }  // Run on Windows agent node
+            agent { label 'master' }  // Run on Windows agent node
             steps {
                 checkout scm
             }
         }
         
         stage('Build image') {
-            agent { label 'windows-agent' }
+            agent { label 'master' }
             steps {
                 // Docker build happens on Windows (via PowerShell/Docker Desktop)
                 sh 'docker build -t selenium-pytest .'
