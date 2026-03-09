@@ -1,75 +1,34 @@
 pipeline {
-     docker {
-        image 'jenkins-docker'
-        args '-v /var/run/docker.sock:/var/run/docker.sock'
-     }
-
+    agent none  // Explicitly set agents per stage
+    
     stages {
         stage('Checkout') {
+            agent { label 'windows-agent' }  // Run on Windows agent node
             steps {
                 checkout scm
             }
         }
-
+        
         stage('Build image') {
+            agent { label 'windows-agent' }
             steps {
-                sh '''
-                       docker build -t selenium-pytest .
-                    '''
+                // Docker build happens on Windows (via PowerShell/Docker Desktop)
+                sh 'docker build -t selenium-pytest .'
             }
         }
-
+        
         stage('Run Pytest in Docker') {
             agent {
                 docker {
-                    image 'selenium-pytest'      // use the image we just built
+                    image 'selenium-pytest'
                     args '-u root'
-                    reuseNode true
                 }
             }
             steps {
                 sh '''
-                    pip install --upgrade pip    # requirements already in image
-
-                    pytest --html=TestAutomation/reports/report.html --self-contained-html -vs
-                    '''
+                    pytest --html=reports/report.html --self-contained-html -vs
+                '''
             }
         }
-//        stage('Post Test Execution') {
-//
-//
-//            steps {
-//                    sh '''
-//                        docker system prune -a
-//
-//                    '''
-//            }
-
-//            agent{
-//                docker{
-//                    image 'amazon/aws-cli:latest'
-//                    reuseNode true
-//                    args "--entrypoint=''"
-//                }
-//            }
-//
-//            environment{
-//                // Set the S3 bucket name as an environment variable
-//                AWS_S3_BUCKET= 'jenkins-test-26022026'
-//            }
-//
-//            steps {
-//                // Use Jenkins credentials to set AWS_ACCESS_KEY_ID and AWS_SECRET_ACCESS_KEY
-//                withCredentials([usernamePassword(credentialsId: 'awsID', passwordVariable: 'AWS_SECRET_ACCESS_KEY', usernameVariable: 'AWS_ACCESS_KEY_ID')]) {
-//                        sh '''
-//                                aws --version
-//                                aws s3 ls
-//                                pwd
-//                                // Sync the local reports directory to the specified S3 bucket
-//                                aws s3 sync /var/jenkins_home/workspace/git_docker/Optima_Automation/reports/ s3://$AWS_S3_BUCKET/reports/
-//                        '''
-//                    }
-//
-//            }
     }
 }

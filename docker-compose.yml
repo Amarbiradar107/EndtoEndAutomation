@@ -69,6 +69,20 @@ services:
     networks:
       - jenkins  # ← added
 
+  selenium-pytest:
+    build: .
+    container_name: selenium-pytest
+    environment:
+      - SELENIUM_HUB_URL=http://selenium-hud:4444
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./reports:/app/reports
+    networks:
+      - jenkins
+    depends_on:
+      - selenium-hud
+    command: pytest --html=reports/report.html --self-contained-html -vs
+
 #  edge:
 #    image: selenium/node-edge:4.41.0  # ← pinned
 #    environment:
