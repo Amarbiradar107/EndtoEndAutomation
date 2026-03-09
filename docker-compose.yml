@@ -8,6 +8,7 @@ services:
     volumes:
       - jenkins-docker-certs:/certs/client
       - jenkins-data:/var/jenkins_home
+
     ports:
       - "2376:2376"
     networks:
@@ -17,10 +18,10 @@ services:
     command: --storage-driver overlay2
 
   my-jenkins:
-    image: jenkins/jenkins:2.553
+    image: jenkins/jenkins:latest-jdk21
     build:
       context: .
-    container_name: jenkins/jenkins:lts-jdk21
+    container_name: jenkins
     restart: on-failure
     environment:
       - DOCKER_HOST=tcp://docker:2376
@@ -29,6 +30,7 @@ services:
     volumes:
       - jenkins-data:/var/jenkins_home
       - jenkins-docker-certs:/certs/client:ro
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "8080:8080"
       - "50000:50000"

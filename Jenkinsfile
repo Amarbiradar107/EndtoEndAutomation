@@ -1,7 +1,5 @@
 pipeline {
-    agent {
-        label 'master'
-    }
+    agent master
 
     stages {
         stage('Checkout') {
@@ -12,7 +10,7 @@ pipeline {
 
         stage('Build image') {
             steps {
-                bat '''
+                sh '''
                        docker build -t selenium-pytest .
                     '''
             }
@@ -27,9 +25,9 @@ pipeline {
                 }
             }
             steps {
-                bat '''
+                sh '''
                     pip install --upgrade pip    # requirements already in image
-                    google-chrome --version || echo "chrome not installed"
+
                     pytest --html=TestAutomation/reports/report.html --self-contained-html -vs
                     '''
             }
