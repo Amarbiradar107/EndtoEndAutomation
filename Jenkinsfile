@@ -13,9 +13,8 @@ pipeline {
         stage('Build image') {
             steps {
                 bat '''
-
                        docker build -t selenium-pytest .
-                '''
+                    '''
             }
         }
 
@@ -32,9 +31,7 @@ pipeline {
                     pip install --upgrade pip    # requirements already in image
                     google-chrome --version || echo "chrome not installed"
                     pytest --html=TestAutomation/reports/report.html --self-contained-html -vs
-                    pwd
-                    ls -l TestAutomation/reports/
-                '''
+                    '''
             }
         }
 //        stage('Post Test Execution') {
@@ -73,6 +70,5 @@ pipeline {
 //                    }
 //
 //            }
-        }
-//    }
+    }
 }
