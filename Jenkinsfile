@@ -1,5 +1,8 @@
 pipeline {
-    agent master
+    agent {
+        label 'master'
+        args '-v /var/run/docker.sock:/var/run/docker.sock'
+    }
 
     stages {
         stage('Checkout') {
