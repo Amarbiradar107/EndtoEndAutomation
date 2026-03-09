@@ -53,3 +53,7 @@ services:
       - selenium-hud
     shm_size: "2g"
 
+
+volumes:
+  jenkins-docker-certs:
+  jenkins-data:
