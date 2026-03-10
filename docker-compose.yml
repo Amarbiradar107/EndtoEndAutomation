@@ -56,17 +56,17 @@ services:
     networks:
       - jenkins  # ← added
 
-  firefox:
-    image: selenium/node-firefox:128.0-geckodriver-0.36-grid-4.41.0-20260222  # ← pinned
-    environment:
-      - SE_EVENT_BUS_PUBLISH_PORT=4442
-      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_EVENT_BUS_HOST=selenium-hud
-    depends_on:
-      - selenium-hud
-    shm_size: "2g"
-    networks:
-      - jenkins  # ← added
+#  firefox:
+#    image: selenium/node-firefox:128.0-geckodriver-0.36-grid-4.41.0-20260222  # ← pinned
+#    environment:
+#      - SE_EVENT_BUS_PUBLISH_PORT=4442
+#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+#      - SE_EVENT_BUS_HOST=selenium-hud
+#    depends_on:
+#      - selenium-hud
+#    shm_size: "2g"
+#    networks:
+#      - jenkins  # ← added
 
 #  edge:
 #    image: selenium/node-edge:4.41.0  # ← pinned
