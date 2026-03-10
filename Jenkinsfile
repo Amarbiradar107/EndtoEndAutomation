@@ -11,18 +11,12 @@ pipeline {
             }
         }
 
-        stage('Build image') {
+        stage('Run Tests with Docker Compose') {
             steps {
                 bat '''
-                       docker build -t selenium-pytest .
-                       cd 
-                    '''
-            }
-        }
-         stage('Run Pytest in Docker') {
-            steps {
-                bat '''
-                    docker run --rm -v %cd%:/app -w /app selenium-pytest pytest --html=reports/report.html --self-contained-html -vs
+                    docker-compose down
+                    docker-compose up --abort-on-container-exit --exit-code-from pytest
+                    docker-compose down
                 '''
             }
         }       
