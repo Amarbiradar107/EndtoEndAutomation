@@ -1,34 +1,30 @@
 pipeline {
-    agent none  // Explicitly set agents per stage
-    
+    agent {
+        label "windows_agent" //crate a node or slave on windows
+    }
+
     stages {
         stage('Checkout') {
-            agent { label 'master' }  // Run on Windows agent node
             steps {
-                checkout scm
+                git branch: 'main',
+                url: 'https://github.com/Amarbiradar107/EndtoEndAutomation.git'
             }
         }
-        
+
         stage('Build image') {
-            agent { label 'master' }
             steps {
-                // Docker build happens on Windows (via PowerShell/Docker Desktop)
-                sh 'docker build -t selenium-pytest .'
+                bat '''
+                       docker build -t selenium-pytest .
+                       cd 
+                    '''
             }
         }
-        
-        stage('Run Pytest in Docker') {
-            agent {
-                docker {
-                    image 'selenium-pytest'
-                    args '-u root'
-                }
-            }
+         stage('Run Pytest in Docker') {
             steps {
-                sh '''
-                    pytest --html=reports/report.html --self-contained-html -vs
+                bat '''
+                    docker run --rm -v %cd%:/app -w /app selenium-pytest pytest --html=reports/report.html --self-contained-html -vs
                 '''
             }
-        }
+        }       
     }
 }
