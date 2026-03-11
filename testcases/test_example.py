@@ -1,12 +1,15 @@
+import pytest
+
+
+from pages.verify_url import VerifyUrl
+from testcases.conftest import setup
 from utilities.logger import Utilities
 import time
 
+@pytest.mark.usefixtures("setup")
 class TestExample:
-    log = Utilities().custom_logger()
-    def test_url_test(self,setup):
-        driver = setup
-        actual_url = driver.current_url
-        assert actual_url == "https://sauce-demo.myshopify.com/"
-        time.sleep(5)
-        self.log.info("url validation passed")
+    def test_url_test(self):
+        url_verify = VerifyUrl(self.driver)
+        url_verify.verify_url()
+
 

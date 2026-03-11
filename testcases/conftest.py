@@ -10,7 +10,7 @@ base_url = config["environment"]["base_url"]
 grid_url = config["environment"]["grid_url"]
 
 @pytest.fixture(scope="function")
-def setup():
+def setup(request):
     # if browser == "chrome":
     #     driver = webdriver.Chrome()
     # elif browser == "firefox":
@@ -24,13 +24,14 @@ def setup():
     # options.add_argument("--no-sandbox")
     # options.add_argument("--disable-dev-shm-usage")
     # username, password = request.param
-    # driver = webdriver.Chrome(options=options)
-    driver = webdriver.Remote(
-        command_executor="http://localhost:4444/wd/hub",
-        options=options
-    )
+    driver = webdriver.Chrome(options=options)
+    # driver = webdriver.Remote(
+    #     command_executor="http://localhost:4444/wd/hub",
+    #     options=options
+    # )
     driver.maximize_window()
     driver.get(base_url)
+    request.cls.driver = driver
     # login_page = LoginPage(driver)
     # login_page.login(username, password)
 
