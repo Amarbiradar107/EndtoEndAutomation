@@ -17,10 +17,10 @@ services:
     command: --storage-driver overlay2
 
   my-jenkins:
-    image: jenkins/jenkins:2.553
+    image: jenkins/jenkins:latest
     build:
       context: .
-    container_name: jenkins/jenkins:lts-jdk21
+    container_name: my-jenkins
     restart: on-failure
     environment:
       - DOCKER_HOST=tcp://docker:2376
@@ -56,30 +56,6 @@ services:
     networks:
       - jenkins  # ← added
 
-#  firefox:
-#    image: selenium/node-firefox:128.0-geckodriver-0.36-grid-4.41.0-20260222  # ← pinned
-#    environment:
-#      - SE_EVENT_BUS_PUBLISH_PORT=4442
-#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-#      - SE_EVENT_BUS_HOST=selenium-hud
-#    depends_on:
-#      - selenium-hud
-#    shm_size: "2g"
-#    networks:
-#      - jenkins  # ← added
-
-#  edge:
-#    image: selenium/node-edge:4.41.0  # ← pinned
-#    environment:
-#      - SE_EVENT_BUS_PUBLISH_PORT=4442
-#      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-#      - SE_EVENT_BUS_HOST=selenium-hud
-#    depends_on:
-#      - selenium-hud
-#    shm_size: "2g"
-#    networks:
-#      - jenkins  # ← added
-
 networks:
   jenkins:
     driver: bridge
@@ -87,3 +63,110 @@ networks:
 volumes:
   jenkins-docker-certs:
   jenkins-data:
+
+#####################################################################################
+
+# services:
+#   jenkins-docker:
+#     image: docker:dind
+#     container_name: jenkins-docker
+#     privileged: true
+#     environment:
+#       - DOCKER_TLS_CERTDIR=/certs
+#     volumes:
+#       - jenkins-docker-certs:/certs/client
+#       - jenkins-data:/var/jenkins_home
+
+#     ports:
+#       - "2376:2376"
+#     networks:
+#       jenkins:
+#         aliases:
+#           - docker
+#     command: --storage-driver overlay2
+
+#   my-jenkins:
+#     image: jenkins/jenkins:latest-jdk21
+#     build:
+#       context: .
+#     container_name: jenkins
+#     restart: on-failure
+#     environment:
+#       - DOCKER_HOST=tcp://docker:2376
+#       - DOCKER_CERT_PATH=/certs/client
+#       - DOCKER_TLS_VERIFY=1
+#     volumes:
+#       - jenkins-data:/var/jenkins_home
+#       - jenkins-docker-certs:/certs/client:ro
+#     ports:
+#       - "8080:8080"
+#       - "50000:50000"
+#     networks:
+#       - jenkins
+
+#   selenium-hud:
+#     image: selenium/hub:4.41.0
+#     ports:
+#       - "4444:4444"
+#       - "4442:4442"
+#       - "4443:4443"
+#     networks:
+#       - jenkins  # ← added
+
+#   chrome:
+#     image: selenium/node-chrome:145.0-chromedriver-145.0-grid-4.41.0-20260222  # ← pinned
+#     environment:
+#       - SE_EVENT_BUS_PUBLISH_PORT=4442
+#       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+#       - SE_EVENT_BUS_HOST=selenium-hud
+#     depends_on:
+#       - selenium-hud
+#     shm_size: "2g"
+#     networks:
+#       - jenkins  # ← added
+
+#   firefox:
+#     image: selenium/node-firefox:128.0-geckodriver-0.36-grid-4.41.0-20260222  # ← pinned
+#     environment:
+#       - SE_EVENT_BUS_PUBLISH_PORT=4442
+#       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+#       - SE_EVENT_BUS_HOST=selenium-hud
+#     depends_on:
+#       - selenium-hud
+#     shm_size: "2g"
+#     networks:
+#       - jenkins  # ← added
+
+#   selenium-pytest:
+#     build: .
+#     container_name: selenium-pytest
+#     environment:
+#       - SELENIUM_HUB_URL=http://selenium-hud:4444
+#       - PYTHONUNBUFFERED=1
+#     volumes:
+#       - ./reports:/app/reports
+#     networks:
+#       - jenkins
+#     depends_on:
+#       - selenium-hud
+#     command: pytest --html=reports/report.html --self-contained-html -vs
+
+# #  edge:
+# #    image: selenium/node-edge:4.41.0  # ← pinned
+# #    environment:
+# #      - SE_EVENT_BUS_PUBLISH_PORT=4442
+# #      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
+# #      - SE_EVENT_BUS_HOST=selenium-hud
+# #    depends_on:
+# #      - selenium-hud
+# #    shm_size: "2g"
+# #    networks:
+# #      - jenkins  # ← added
+
+# networks:
+#   jenkins:
+#     driver: bridge
+
+# volumes:
+#   jenkins-docker-certs:
+#   jenkins-data:
