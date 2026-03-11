@@ -42,10 +42,10 @@ services:
       - "4442:4442"
       - "4443:4443"
     networks:
-      - jenkins  # ← added
+      - jenkins
 
   chrome:
-    image: selenium/node-chrome:145.0-chromedriver-145.0-grid-4.41.0-20260222  # ← pinned
+    image: selenium/node-chrome:145.0-chromedriver-145.0-grid-4.41.0-20260222
     environment:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
@@ -54,7 +54,22 @@ services:
       - selenium-hud
     shm_size: "2g"
     networks:
-      - jenkins  # ← added
+      - jenkins
+
+  pytest:
+    build: .
+    container_name: selenium-pytest
+    environment:
+      - SELENIUM_HUB_URL=http://selenium-hud:4444
+      - PYTHONUNBUFFERED=1
+    volumes:
+      - ./reports:/app/reports
+    networks:
+      - jenkins
+    depends_on:
+      - selenium-hud
+      - chrome
+    command: pytest --html=reports/report.html --self-contained-html -vs
 
 networks:
   jenkins:
