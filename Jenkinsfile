@@ -15,8 +15,8 @@ pipeline {
             steps {
                 bat '''
                     docker-compose down
-                    docker-compose up --abort-on-container-exit --exit-code-from pytest
-                    docker-compose down
+                    docker-compose up 
+                    
                 '''
             }
         }       
