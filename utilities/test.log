@@ -1,0 +1,41 @@
+INFO:root:Logging is not configured. Please configure logging before using the logger.
+INFO:root:Logging is not configured. Please configure logging before using the logger.
+DEBUG:root:Logging is not configured. Please configure logging before using the logger.
+WARNING:root:Logging is not configured. Please configure logging before using the logger.
+ERROR:root:Logging is not configured. Please configure logging before using the logger.
+CRITICAL:root:Logging is not configured. Please configure logging before using the logger.
+INFO:root:Logging is not configured. Please configure logging before using the logger.
+DEBUG:root:Logging is not configured. Please configure logging before using the logger.
+WARNING:root:Logging is not configured. Please configure logging before using the logger.
+ERROR:root:Logging is not configured. Please configure logging before using the logger.
+CRITICAL:root:Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:01:23,270 - INFO -
+2026-03-11 17:01:23,270 - DEBUG -
+2026-03-11 17:01:23,271 - WARNING -
+2026-03-11 17:01:23,271 - ERROR -
+2026-03-11 17:01:23,271 - CRITICAL -
+2026-03-11 17:01:41,852 - INFO - Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:01:41,852 - DEBUG - Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:01:41,852 - WARNING - Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:01:41,852 - ERROR - Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:01:41,852 - CRITICAL - Logging is not configured. Please configure logging before using the logger.
+2026-03-11 17:02:33,590 - INFO - Logging is not configured. Please configure logging before using the logger. - logger.py - logger
+2026-03-11 17:02:33,590 - DEBUG - Logging is not configured. Please configure logging before using the logger. - logger.py - logger
+2026-03-11 17:02:33,590 - WARNING - Logging is not configured. Please configure logging before using the logger. - logger.py - logger
+2026-03-11 17:02:33,590 - ERROR - Logging is not configured. Please configure logging before using the logger. - logger.py - logger
+2026-03-11 17:02:33,590 - CRITICAL - Logging is not configured. Please configure logging before using the logger. - logger.py - logger
+2026-03-11 17:03:33,407 - INFO - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 21004
+2026-03-11 17:03:33,408 - DEBUG - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 21004
+2026-03-11 17:03:33,409 - WARNING - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 21004
+2026-03-11 17:03:33,409 - ERROR - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 21004
+2026-03-11 17:03:33,409 - CRITICAL - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 21004
+2026-03-11 17:04:04,363 - INFO - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 10768 - MainThread
+2026-03-11 17:04:04,363 - DEBUG - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 10768 - MainThread
+2026-03-11 17:04:04,364 - WARNING - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 10768 - MainThread
+2026-03-11 17:04:04,364 - ERROR - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 10768 - MainThread
+2026-03-11 17:04:04,364 - CRITICAL - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 10768 - MainThread
+03/11/2026 05:06:29 PM - INFO - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 24620 - MainThread
+03/11/2026 05:06:29 PM - DEBUG - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 24620 - MainThread
+03/11/2026 05:06:29 PM - WARNING - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 24620 - MainThread
+03/11/2026 05:06:29 PM - ERROR - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 24620 - MainThread
+03/11/2026 05:06:29 PM - CRITICAL - Logging is not configured. Please configure logging before using the logger. - logger.py - logger - 24620 - MainThread

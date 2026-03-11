@@ -1,0 +1,8 @@
+2026-03-11 17:42:59,773 - INFO - <module> : This is an info message
+2026-03-11 17:42:59,773 - WARNING - <module> : This is a warning message
+2026-03-11 17:42:59,773 - ERROR - <module> : This is an error message
+2026-03-11 17:43:08,933 - INFO - <module> : This is an info message
+2026-03-11 17:43:08,933 - WARNING - <module> : This is a warning message
+2026-03-11 17:43:08,933 - ERROR - <module> : This is an error message
+2026-03-11 17:51:09,573 - WARNING - TestExample : url validation passed
+2026-03-11 17:51:39,245 - INFO - TestExample : url validation passed

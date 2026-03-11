@@ -20,7 +20,7 @@ services:
     image: jenkins/jenkins:latest
     build:
       context: .
-    container_name: my-jenkins
+    container_name: my-jenkins-2
     restart: on-failure
     environment:
       - DOCKER_HOST=tcp://docker:2376

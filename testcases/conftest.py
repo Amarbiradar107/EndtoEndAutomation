@@ -26,7 +26,7 @@ def setup():
     # username, password = request.param
     # driver = webdriver.Chrome(options=options)
     driver = webdriver.Remote(
-        command_executor=grid_url,
+        command_executor="http://localhost:4444/wd/hub",
         options=options
     )
     driver.maximize_window()
