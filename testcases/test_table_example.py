@@ -13,6 +13,12 @@ class TestTableExample:
         tb.click_language_filter("java")
         time.sleep(2)
 
+    def test_level_filter(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.select_level_filter()
+        time.sleep(2)
+
+
 
 
 
