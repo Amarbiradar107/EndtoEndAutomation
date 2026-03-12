@@ -1,4 +1,5 @@
 import pytest
+from requests import options
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import configparser
@@ -35,5 +36,19 @@ def setup(request):
     # login_page = LoginPage(driver)
     # login_page.login(username, password)
 
+    yield driver
+    driver.quit()
+
+@pytest.fixture(scope="function")
+def setup_two(request):
+    options_two = Options()
+    # options_two.add_argument("--log-level=3")
+    # options_two.add_argument("--headless")
+    # options_two.add_argument("--no-sandbox")
+    # options_two.add_argument("--disable-dev-shm-usage")
+    driver = webdriver.Chrome(options=options_two)
+    driver.maximize_window()
+    driver.get("https://practicetestautomation.com/practice-test-table/")
+    request.cls.driver = driver
     yield driver
     driver.quit()

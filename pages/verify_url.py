@@ -13,3 +13,4 @@ class VerifyUrl:
         assert actual_url == "https://sauce-demo.myshopify.com/"
         time.sleep(5)
         log.info("url validation passed")
+
