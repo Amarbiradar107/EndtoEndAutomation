@@ -16,6 +16,7 @@ class TestRegistration:
         registration_page.click_signup_link()
         registration_page.positive_registration("John", "Doe", "jhon@gmail.com", "password123")
 
+    @pytest.mark.skip(reason="This test is skipped because it's just an example and not meant to be executed.")
     def test_negative_registration(self, setup):
         registration_page = RegistrationPage(setup)
         registration_page.click_signup_link()

@@ -1,6 +1,10 @@
 import inspect
 import logging
+from pathlib import Path
+
+
 class Utilities:
+    ROOT_DIR = Path(__file__).resolve().parent.parent
     def custom_logger(self, logLevel=logging.INFO):
         # Set class/method name from where its called
         logger_name = inspect.stack()[1][3]
@@ -10,7 +14,7 @@ class Utilities:
         logger.setLevel(logLevel)
 
         # create console handler or file handler and set the log level
-        fh = logging.FileHandler("log/automation.log")
+        fh = logging.FileHandler(self.ROOT_DIR/'log'/'automation.log')
         ch = logging.StreamHandler()
 
         # create formatter - how you want your logs to be formatted

@@ -10,9 +10,10 @@ class TablePage:
     Level_filter_Intermediate = "//input[@type='checkbox' and @value='Intermediate']"
     Level_filter_Advanced = "//input[@type='checkbox' and @value='Advanced']"
     checkbox = "//input[@type='checkbox']"
-
     Tabel_header= "//table/thead/tr/th"
     Tabel_body= "//table/tbody/tr"
+    Min_enrollments_dropdown = "//div[@class='dropdown-button']"
+    Min_enrollments_Options = "//div[@id='enrollDropdown']//li"
 
     log = Utilities().custom_logger()
 
@@ -72,6 +73,35 @@ class TablePage:
         else:
             self.log.info("intermediate level selected")
             self.log.info("advanced level selected")
+
+    def min_enrollments(self):
+        click_dropdown = self.driver.find_element(By.XPATH,self.Min_enrollments_dropdown)
+        click_dropdown.click()
+        dropdown_values = self.driver.find_elements(By.XPATH,self.Min_enrollments_Options)
+        self.log.info((len(dropdown_values)))
+        for value in dropdown_values:
+            if value.text == "10,000+":
+                value.click()
+                self.log.info("10,000+ selected")
+                column = len(self.driver.find_elements(By.XPATH, self.Tabel_header))
+                rows = len(self.driver.find_elements(By.XPATH, self.Tabel_body))
+                for col in range(1, column + 1):
+                    column_header = self.driver.find_element(By.XPATH, "//table/thead/tr/th[" + str(col) + "]").text
+                    if column_header == "Enrollments":
+                        for row in range(1, rows + 1):
+                            col_data = self.driver.find_elements(By.XPATH, "//table/tbody/tr/td[" + str(col) + "]")
+                            len(col_data)
+                            for data in col_data:
+                                if data.text == "":
+                                    self.log.info("Encountered blank value....")
+                                else:
+                                    # self.log.info(data.text)
+                                    enrollment_count = int(data.text)
+                                    assert enrollment_count >= 10000 ,self.log.info("Enrollment count is less than 10,000")
+                            break
+                        break
+                break
+
 
 
 

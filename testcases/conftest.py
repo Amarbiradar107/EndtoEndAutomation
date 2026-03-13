@@ -1,11 +1,15 @@
+from pathlib import Path
+
 import pytest
 from requests import options
 from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 import configparser
 
+ROOT_DIR = Path(__file__).resolve().parent.parent
+
 config = configparser.ConfigParser()
-config.read('configfiles/config.ini')
+config.read(ROOT_DIR/'configfiles'/'config.ini')
 
 base_url = config["environment"]["base_url"]
 grid_url = config["environment"]["grid_url"]
@@ -35,7 +39,6 @@ def setup(request):
     request.cls.driver = driver
     # login_page = LoginPage(driver)
     # login_page.login(username, password)
-
     yield driver
     driver.quit()
 
