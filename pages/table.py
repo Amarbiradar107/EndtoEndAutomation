@@ -103,6 +103,21 @@ class TablePage:
                 break
 
 
+    def combined_filters(self):
+        pass
+
+    def no_results_state(self):
+        pass
+
+    def reset_button_visibility_and_behavior(self):
+        pass
+
+    def sort_by_enrollments_ascending_numeric(self):
+        pass
+    def sort_by_course_name_alphabetical(self):
+        pass
+
+
 
 
 
