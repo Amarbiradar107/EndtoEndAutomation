@@ -25,6 +25,11 @@ class TestTableExample:
         tb.min_enrollments()
         time.sleep(2)
 
+    def test_combile_filter(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.combined_filters()
+
+
 
 
 

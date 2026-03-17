@@ -43,7 +43,7 @@ def setup(request):
     driver.quit()
 
 @pytest.fixture(scope="function")
-def setup_two(request):
+def setup_two(request,):
     options_two = Options()
     # options_two.add_argument("--log-level=3")
     # options_two.add_argument("--headless")
@@ -53,5 +53,6 @@ def setup_two(request):
     driver.maximize_window()
     driver.get("https://practicetestautomation.com/practice-test-table/")
     request.cls.driver = driver
+    assert driver.current_url == "https://practicetestautomation.com/practice-test-table/"
     yield driver
     driver.quit()
