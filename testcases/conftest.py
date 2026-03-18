@@ -13,6 +13,7 @@ config.read(ROOT_DIR/'configfiles'/'config.ini')
 
 base_url = config["environment"]["base_url"]
 grid_url = config["environment"]["grid_url"]
+base_url_2 = config["environment"]["base_url_2"]
 
 @pytest.fixture(scope="function")
 def setup(request):
@@ -51,8 +52,8 @@ def setup_two(request,):
     # options_two.add_argument("--disable-dev-shm-usage")
     driver = webdriver.Chrome(options=options_two)
     driver.maximize_window()
-    driver.get("https://practicetestautomation.com/practice-test-table/")
+    driver.get(base_url_2)
     request.cls.driver = driver
-    assert driver.current_url == "https://practicetestautomation.com/practice-test-table/"
+    assert driver.current_url == base_url_2
     yield driver
     driver.quit()

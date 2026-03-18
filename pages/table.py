@@ -114,6 +114,7 @@ class TablePage:
 
     def sort_by_enrollments_ascending_numeric(self):
         pass
+
     def sort_by_course_name_alphabetical(self):
         pass
 

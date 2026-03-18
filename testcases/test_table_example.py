@@ -25,9 +25,28 @@ class TestTableExample:
         tb.min_enrollments()
         time.sleep(2)
 
-    def test_combile_filter(self,setup_two):
+    def test_combine_filter(self,setup_two):
         tb = TablePage(setup_two)
         tb.combined_filters()
+
+    def test_no_results_state(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.no_results_state()
+
+    def test_reset_button_visibility_and_behavior(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.reset_button_visibility_and_behavior()
+
+    def test_sort_by_enrollments_ascending_numeric(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.sort_by_enrollments_ascending_numeric()
+
+    def test_sort_by_course_name_alphabetical(self,setup_two):
+        tb = TablePage(setup_two)
+        tb.sort_by_course_name_alphabetical()
+
+
+
 
 
 
