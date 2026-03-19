@@ -904,3 +904,71 @@
 2026-03-18 23:00:33,565 - INFO - TablePage : blank value....
 2026-03-18 23:00:33,574 - INFO - TablePage : blank value....
 2026-03-18 23:00:33,581 - INFO - TablePage : blank value....
+2026-03-19 11:08:42,962 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:08:43,049 - INFO - TablePage : advanced level unselected
+2026-03-19 11:08:43,201 - INFO - TablePage : 4
+2026-03-19 11:08:43,315 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:09:44,139 - INFO - TablePage : 4824578
+2026-03-19 11:09:59,839 - INFO - TablePage : blank value....
+2026-03-19 11:10:13,745 - INFO - TablePage : Selenium with Python
+2026-03-19 11:10:21,246 - INFO - TablePage : blank value....
+2026-03-19 11:10:36,223 - INFO - TablePage : Python
+2026-03-19 11:11:38,817 - INFO - TablePage : blank value....
+2026-03-19 11:11:45,247 - INFO - TablePage : Beginner
+2026-03-19 11:11:53,197 - INFO - TablePage : blank value....
+2026-03-19 11:12:06,819 - INFO - TablePage : 10705
+2026-03-19 11:12:21,516 - INFO - TablePage : blank value....
+2026-03-19 11:12:42,710 - INFO - TablePage : View
+2026-03-19 11:13:16,054 - INFO - TablePage : blank value....
+2026-03-19 11:14:42,706 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:14:42,801 - INFO - TablePage : advanced level unselected
+2026-03-19 11:14:42,932 - INFO - TablePage : 4
+2026-03-19 11:14:43,086 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:14:49,601 - INFO - TablePage : 4824578
+2026-03-19 11:15:14,217 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:15:14,355 - INFO - TablePage : advanced level unselected
+2026-03-19 11:15:14,453 - INFO - TablePage : 4
+2026-03-19 11:15:14,613 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:15:20,199 - INFO - TablePage : 4824578
+2026-03-19 11:15:23,543 - INFO - TablePage : Selenium with Python
+2026-03-19 11:15:26,681 - INFO - TablePage : Python
+2026-03-19 11:15:36,600 - INFO - TablePage : Beginner
+2026-03-19 11:15:42,923 - INFO - TablePage : 10705
+2026-03-19 11:15:47,229 - INFO - TablePage : View
+2026-03-19 11:20:51,216 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:20:51,313 - INFO - TablePage : advanced level unselected
+2026-03-19 11:20:51,570 - INFO - TablePage : 4
+2026-03-19 11:20:51,912 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:20:58,682 - INFO - TablePage : 4824578
+2026-03-19 11:21:02,333 - INFO - TablePage : Enrollments are greater than 10,000
+2026-03-19 11:21:08,944 - INFO - TablePage : Selenium with Python
+2026-03-19 11:22:28,750 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:22:28,851 - INFO - TablePage : advanced level unselected
+2026-03-19 11:22:29,060 - INFO - TablePage : 4
+2026-03-19 11:22:29,258 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:22:39,572 - INFO - TablePage : 4824578
+2026-03-19 11:23:31,940 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:23:31,999 - INFO - TablePage : advanced level unselected
+2026-03-19 11:23:32,157 - INFO - TablePage : 4
+2026-03-19 11:23:32,262 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:23:43,735 - INFO - TablePage : 4824578
+2026-03-19 11:23:51,579 - INFO - TablePage : Selenium with Python
+2026-03-19 11:24:00,792 - INFO - TablePage : Python
+2026-03-19 11:24:05,672 - INFO - TablePage : python data selected
+2026-03-19 11:24:27,082 - INFO - TablePage : Beginner
+2026-03-19 11:24:29,599 - INFO - TablePage : Beginner data selected
+2026-03-19 11:25:29,376 - INFO - TablePage : 10705
+2026-03-19 11:26:11,025 - INFO - TablePage : View
+2026-03-19 11:32:24,581 - INFO - TablePage : intermediate level unselected
+2026-03-19 11:32:24,729 - INFO - TablePage : advanced level unselected
+2026-03-19 11:32:24,881 - INFO - TablePage : 4
+2026-03-19 11:32:25,067 - INFO - TablePage : 10,000+ selected
+2026-03-19 11:32:57,331 - INFO - TablePage : 4824578
+2026-03-19 11:33:19,966 - INFO - TablePage : Selenium with Python
+2026-03-19 11:33:45,304 - INFO - TablePage : Python
+2026-03-19 11:33:51,094 - INFO - TablePage : python data selected
+2026-03-19 11:34:03,992 - INFO - TablePage : Beginner
+2026-03-19 11:34:10,729 - INFO - TablePage : Beginner data selected
+2026-03-19 11:34:19,388 - INFO - TablePage : 10705
+2026-03-19 11:34:49,354 - INFO - TablePage : Enrollments are greater than 10,000
+2026-03-19 11:35:03,968 - INFO - TablePage : View

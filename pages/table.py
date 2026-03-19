@@ -168,13 +168,24 @@ class TablePage:
                             print(len(col_data))
                             # print(col_data.text)
                             for data in col_data:
-                                if data.text == "":
-                                    self.log.info("blank value....")
-                                else:
+                                if data.text:
+                                    self.log.info(data.text)
+                                    if column_header == "Language":
+                                        if data.text == "Python":
+                                            self.log.info("python data selected")
+                                    if column_header == "Level":
+                                        if data.text == "Beginner":
+                                            self.log.info("Beginner data selected")
+                                    if column_header == "Enrollments":
+                                        enrollments = int(data.text)
+                                        if enrollments >= 10000:
+                                            self.log.info("Enrollments are greater than 10,000")
+                                elif data.text == "":
                                     # assert data.text == user_filter
                                     self.log.info(data.text)
-
-
+                                    break
+                                    self.log.info("blank value....")
+                                break
 
 
     def no_results_state(self):
