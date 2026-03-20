@@ -1,3 +1,8 @@
+from asyncio import exceptions
+from selenium.common import NoSuchElementException, StaleElementReferenceException, ElementNotInteractableException, \
+    ElementClickInterceptedException, TimeoutException, NoSuchFrameException, NoSuchWindowException, \
+    InvalidArgumentException, InvalidSessionIdException, WebDriverException, SessionNotCreatedException, \
+    NoAlertPresentException, InvalidElementStateException
 from selenium.webdriver.common.by import By
 from utilities.logger import Utilities
 
@@ -14,6 +19,7 @@ class TablePage:
     Tabel_body= "//table/tbody/tr"
     Min_enrollments_dropdown = "//div[@class='dropdown-button']"
     Min_enrollments_Options = "//div[@id='enrollDropdown']//li"
+    No_data_Message = "//div[@id='noData']"
 
 
     log = Utilities().custom_logger()
@@ -140,56 +146,80 @@ class TablePage:
 
 
     def combined_filters(self,user_filter):
-        # self.click_language_filter(user_filter)
-        # self.select_level_filter()
-        # self.min_enrollments()
-        if user_filter == "Python":
-            self.driver.find_element(By.XPATH, self.Language_filter_python).click()
-            intermediate_check_box = self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).is_selected()
-            advance_level_checkbox = self.driver.find_element(By.XPATH, self.Level_filter_Advanced).is_selected()
-            if intermediate_check_box and advance_level_checkbox:
-                self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).click()
-                self.log.info("intermediate level unselected")
-                self.driver.find_element(By.XPATH, self.Level_filter_Advanced).click()
-                self.log.info("advanced level unselected")
-                click_dropdown = self.driver.find_element(By.XPATH, self.Min_enrollments_dropdown)
-                click_dropdown.click()
-                dropdown_values = self.driver.find_elements(By.XPATH, self.Min_enrollments_Options)
-                self.log.info((len(dropdown_values)))
-                for value in dropdown_values:
-                    if value.text == "10,000+":
-                        value.click()
-                        self.log.info("10,000+ selected")
-                        column = len(self.driver.find_elements(By.XPATH,self.Tabel_header))
-                        rows = len(self.driver.find_elements(By.XPATH,self.Tabel_body))
-                        for col in range(1,column+1):
-                            column_header = self.driver.find_element(By.XPATH,"//table/thead/tr/th["+str(col)+"]").text
-                            col_data = self.driver.find_elements(By.XPATH,"//table/tbody/tr/td["+str(col)+"]")
-                            print(len(col_data))
-                            # print(col_data.text)
-                            for data in col_data:
-                                if data.text:
-                                    self.log.info(data.text)
-                                    if column_header == "Language":
-                                        if data.text == "Python":
-                                            self.log.info("python data selected")
-                                    if column_header == "Level":
-                                        if data.text == "Beginner":
-                                            self.log.info("Beginner data selected")
-                                    if column_header == "Enrollments":
-                                        enrollments = int(data.text)
-                                        if enrollments >= 10000:
-                                            self.log.info("Enrollments are greater than 10,000")
-                                elif data.text == "":
-                                    # assert data.text == user_filter
-                                    self.log.info(data.text)
+        try:
+            if user_filter == "Python":
+                self.driver.find_element(By.XPATH, self.Language_filter_python).click()
+                intermediate_check_box = self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).is_selected()
+                advance_level_checkbox = self.driver.find_element(By.XPATH, self.Level_filter_Advanced).is_selected()
+                if intermediate_check_box and advance_level_checkbox:
+                    self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).click()
+                    self.log.info("intermediate level unselected")
+                    self.driver.find_element(By.XPATH, self.Level_filter_Advanced).click()
+                    self.log.info("advanced level unselected")
+                    click_dropdown = self.driver.find_element(By.XPATH, self.Min_enrollments_dropdown)
+                    click_dropdown.click()
+                    dropdown_values = self.driver.find_elements(By.XPATH, self.Min_enrollments_Options)
+                    self.log.info((len(dropdown_values)))
+                    for value in dropdown_values:
+                        if value.text == "10,000+":
+                            value.click()
+                            self.log.info("10,000+ selected")
+                            column = len(self.driver.find_elements(By.XPATH,self.Tabel_header))
+                            rows = len(self.driver.find_elements(By.XPATH,self.Tabel_body))
+                            for col in range(1,column+1):
+                                column_header = self.driver.find_element(By.XPATH,"//table/thead/tr/th["+str(col)+"]").text
+                                col_data = self.driver.find_elements(By.XPATH,"//table/tbody/tr/td["+str(col)+"]")
+                                print(len(col_data))
+                                # print(col_data.text)
+                                for data in col_data:
+                                    if data.text:
+                                        self.log.info(data.text)
+                                        if column_header == "Language":
+                                            if data.text == "Python":
+                                                self.log.info("python data selected")
+                                        if column_header == "Level":
+                                            if data.text == "Beginner":
+                                                self.log.info("Beginner data selected")
+                                        if column_header == "Enrollments":
+                                            enrollments = int(data.text)
+                                            if enrollments >= 10000:
+                                                self.log.info("Enrollments are greater than 10,000")
+                                    elif data.text == "":
+                                        # assert data.text == user_filter
+                                        self.log.info(data.text)
+                                        break
+                                        self.log.info("blank value....")
                                     break
-                                    self.log.info("blank value....")
-                                break
+        except(NoSuchElementException,StaleElementReferenceException,ElementNotInteractableException,
+               ElementClickInterceptedException, TimeoutException,NoSuchFrameException, NoSuchWindowException,
+               NoAlertPresentException,InvalidArgumentException, WebDriverException, SessionNotCreatedException,
+               InvalidSessionIdException,InvalidElementStateException ) as e:
+            self.log.info("raised Exception" + str(e))
+        except Exception as e:
+            self.log.info("somthing went wrong"+ str(e))
 
 
     def no_results_state(self):
-        pass
+        beginner_level = self.driver.find_element(By.XPATH,self.Level_filter_Beginner).is_selected()
+        intermediate_check_box = self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).is_selected()
+        advance_level = self.driver.find_element(By.XPATH, self.Level_filter_Advanced).is_selected()
+        if beginner_level and intermediate_check_box:
+            self.driver.find_element(By.XPATH,self.Level_filter_Beginner).click()
+            self.driver.find_element(By.XPATH, self.Level_filter_Intermediate).click()
+        click_dropdown = self.driver.find_element(By.XPATH, self.Min_enrollments_dropdown)
+        click_dropdown.click()
+        dropdown_values = self.driver.find_elements(By.XPATH, self.Min_enrollments_Options)
+        # self.log.info((len(dropdown_values)))
+        for value in dropdown_values:
+            if value.text == "50,000+":
+                value.click()
+                self.log.info("50,000+ selected")
+        try :
+            message = self.driver.find_element(By.XPATH,self.No_data_Message).text.strip()
+            # no_data_message = message.text
+            assert message == "No matching courses.",self.log.info("No message found")
+        except(NoSuchElementException,StaleElementReferenceException,AssertionError,TypeError) as e:
+            self.log.info("raised Exception" + str(e))
 
     def reset_button_visibility_and_behavior(self):
         pass

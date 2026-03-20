@@ -16,6 +16,7 @@ grid_url = config["environment"]["grid_url"]
 base_url_2 = config["environment"]["base_url_2"]
 
 @pytest.fixture(scope="function")
+
 def setup(request):
     # if browser == "chrome":
     #     driver = webdriver.Chrome()
