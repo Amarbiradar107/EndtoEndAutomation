@@ -18,14 +18,10 @@ pipeline {
                 docker rm -f jenkins-docker my-jenkins-2 selenium-pytest >nul 2>&1
 
                 echo ===== Stopping previous compose stack =====
-                docker compose down --remove-orphans --volumes
+                docker compose down
 
                 echo ===== Starting test execution =====
-                docker compose up ^
-                    --build ^
-                    --force-recreate ^
-                    --abort-on-container-exit ^
-                    --exit-code-from pytest
+                docker compose up
 
                 '''
             }
