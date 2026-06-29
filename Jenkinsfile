@@ -1,7 +1,6 @@
 pipeline {
-    agent {
-        label 'any' //crate a node or slave on windows
-    }
+
+    agent none
 
     stages {
         stage('Checkout') {
