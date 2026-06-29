@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label "any //crate a node or slave on windows
+        label 'any' //crate a node or slave on windows
     }
 
     stages {
