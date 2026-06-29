@@ -1,31 +1,43 @@
 pipeline {
-
     agent any
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main',
-                url: 'https://github.com/Amarbiradar107/EndtoEndAutomation.git'
+                    url: 'https://github.com/Amarbiradar107/EndtoEndAutomation.git'
             }
         }
 
         stage('Run Tests with Docker Compose') {
             steps {
                 sh '''
+                echo ===== Cleaning old containers =====
 
-                    docker rm -f jenkins-docker my-jenkins-2 selenium-pytest 2>nul || echo "No existing containers to remove"
-                    
+                docker rm -f jenkins-docker my-jenkins-2 selenium-pytest >nul 2>&1
 
-                    docker compose down --remove-orphans --volumes 2>nul || echo "Compose down completed"
-                    
+                echo ===== Stopping previous compose stack =====
+                docker compose down --remove-orphans --volumes
 
-                    docker compose up --abort-on-container-exit --exit-code-from pytest --remove-orphans --force-recreate
-                    
+                echo ===== Starting test execution =====
+                docker compose up ^
+                    --build ^
+                    --force-recreate ^
+                    --abort-on-container-exit ^
+                    --exit-code-from pytest
 
-                    docker compose down --remove-orphans --volumes
                 '''
             }
-        }      
+        }
+    }
+
+    post {
+        always {
+            sh '''
+            echo ===== Cleaning Docker Resources =====
+            docker compose down --remove-orphans --volumes
+            '''
+        }
     }
 }
