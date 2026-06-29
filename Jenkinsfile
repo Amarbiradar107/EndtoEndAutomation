@@ -1,6 +1,6 @@
 pipeline {
 
-//     agent none
+    agent any
 
     stages {
         stage('Checkout') {
@@ -12,7 +12,7 @@ pipeline {
 
         stage('Run Tests with Docker Compose') {
             steps {
-                bat '''
+                sh '''
                     REM Force remove any existing containers with conflicting names
                     docker rm -f jenkins-docker my-jenkins-2 selenium-pytest 2>nul || echo "No existing containers to remove"
                     
