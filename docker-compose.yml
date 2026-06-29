@@ -66,7 +66,7 @@ services:
     build:
         context: .
         dockerfile: Dockerfile.pytest
-    container_name: selenium-pytest
+
     environment:
       - SELENIUM_HUB_URL=http://selenium-hub:4444
       - PYTHONUNBUFFERED=1

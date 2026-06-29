@@ -13,6 +13,9 @@ pipeline {
         stage('Run Tests with Docker Compose') {
             steps {
                 sh '''
+                docker version
+                docker compose version
+                
                 echo ===== Cleaning old containers =====
 
                 docker rm -f jenkins-docker my-jenkins-2 selenium-pytest >nul 2>&1
