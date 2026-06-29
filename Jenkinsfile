@@ -17,13 +17,13 @@ pipeline {
                     docker rm -f jenkins-docker my-jenkins-2 selenium-pytest 2>nul || echo "No existing containers to remove"
                     
 
-                    docker-compose down --remove-orphans --volumes 2>nul || echo "Compose down completed"
+                    docker compose down --remove-orphans --volumes 2>nul || echo "Compose down completed"
                     
 
-                    docker-compose up --abort-on-container-exit --exit-code-from pytest --remove-orphans --force-recreate
+                    docker compose up --abort-on-container-exit --exit-code-from pytest --remove-orphans --force-recreate
                     
 
-                    docker-compose down --remove-orphans --volumes
+                    docker compose down --remove-orphans --volumes
                 '''
             }
         }      
