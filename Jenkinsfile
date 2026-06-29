@@ -32,7 +32,7 @@ pipeline {
         always {
             sh '''
             echo ===== Cleaning Docker Resources =====
-            docker compose down --remove-orphans --volumes
+            docker compose down
             '''
         }
     }
