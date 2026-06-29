@@ -6,8 +6,7 @@ services:
     environment:
       - DOCKER_TLS_CERTDIR=/certs
     volumes:
-      - jenkins-docker-certs:/certs/client
-      - jenkins-data:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - "2376:2376"
     networks:
@@ -17,9 +16,10 @@ services:
     command: --storage-driver overlay2
 
   my-jenkins:
-    image: jenkins/jenkins:latest
+
     build:
       context: .
+      dockerfile: Dockerfile.jenkins
     container_name: my-jenkins-2
     restart: on-failure
     environment:
@@ -35,7 +35,7 @@ services:
     networks:
       - jenkins
 
-  selenium-hud:
+  selenium-hub:
     image: selenium/hub:4.41.0
     ports:
       - "4444:4444"
@@ -43,31 +43,39 @@ services:
       - "4443:4443"
     networks:
       - jenkins
+    healthcheck:
+      test: [ "CMD", "curl", "-f", "http://selenium-hub:4444/status" ]
+      interval: 10s
+      timeout: 5s
+      retries: 10
 
   chrome:
     image: selenium/node-chrome:145.0-chromedriver-145.0-grid-4.41.0-20260222
     environment:
       - SE_EVENT_BUS_PUBLISH_PORT=4442
       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-      - SE_EVENT_BUS_HOST=selenium-hud
+      - SE_EVENT_BUS_HOST=selenium-hub
     depends_on:
-      - selenium-hud
+      selenium-hub:
+        condition: service_healthy
     shm_size: "2g"
     networks:
       - jenkins
 
-  pytest:
-    build: .
+  selenium-pytest:
+    build:
+        context: .
+        dockerfile: Dockerfile.pytest
     container_name: selenium-pytest
     environment:
-      - SELENIUM_HUB_URL=http://selenium-hud:4444
+      - SELENIUM_HUB_URL=http://selenium-hub:4444
       - PYTHONUNBUFFERED=1
     volumes:
       - ./reports:/app/reports
     networks:
       - jenkins
     depends_on:
-      - selenium-hud
+      - selenium-hub
       - chrome
     command: pytest --html=reports/report.html --self-contained-html -vs
 
@@ -119,7 +127,7 @@ volumes:
 #     networks:
 #       - jenkins
 
-#   selenium-hud:
+#   selenium-hub:
 #     image: selenium/hub:4.41.0
 #     ports:
 #       - "4444:4444"
@@ -133,9 +141,9 @@ volumes:
 #     environment:
 #       - SE_EVENT_BUS_PUBLISH_PORT=4442
 #       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-#       - SE_EVENT_BUS_HOST=selenium-hud
+#       - SE_EVENT_BUS_HOST=selenium-hub
 #     depends_on:
-#       - selenium-hud
+#       - selenium-hub
 #     shm_size: "2g"
 #     networks:
 #       - jenkins  # ← added
@@ -145,9 +153,9 @@ volumes:
 #     environment:
 #       - SE_EVENT_BUS_PUBLISH_PORT=4442
 #       - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-#       - SE_EVENT_BUS_HOST=selenium-hud
+#       - SE_EVENT_BUS_HOST=selenium-hub
 #     depends_on:
-#       - selenium-hud
+#       - selenium-hub
 #     shm_size: "2g"
 #     networks:
 #       - jenkins  # ← added
@@ -156,14 +164,14 @@ volumes:
 #     build: .
 #     container_name: selenium-pytest
 #     environment:
-#       - SELENIUM_HUB_URL=http://selenium-hud:4444
+#       - SELENIUM_HUB_URL=http://selenium-hub:4444
 #       - PYTHONUNBUFFERED=1
 #     volumes:
 #       - ./reports:/app/reports
 #     networks:
 #       - jenkins
 #     depends_on:
-#       - selenium-hud
+#       - selenium-hub
 #     command: pytest --html=reports/report.html --self-contained-html -vs
 
 # #  edge:
@@ -171,9 +179,9 @@ volumes:
 # #    environment:
 # #      - SE_EVENT_BUS_PUBLISH_PORT=4442
 # #      - SE_EVENT_BUS_SUBSCRIBE_PORT=4443
-# #      - SE_EVENT_BUS_HOST=selenium-hud
+# #      - SE_EVENT_BUS_HOST=selenium-hub
 # #    depends_on:
-# #      - selenium-hud
+# #      - selenium-hub
 # #    shm_size: "2g"
 # #    networks:
 # #      - jenkins  # ← added

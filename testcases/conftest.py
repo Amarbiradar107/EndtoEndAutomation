@@ -31,11 +31,11 @@ def setup(request):
     # options.add_argument("--no-sandbox")
     # options.add_argument("--disable-dev-shm-usage")
     # username, password = request.param
-    driver = webdriver.Chrome(options=options)
-    # driver = webdriver.Remote(
-    #     command_executor="http://localhost:4444/wd/hub",
-    #     options=options
-    # )
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote(
+        command_executor="http://localhost:4444/wd/hub",
+        options=options
+    )
     driver.maximize_window()
     driver.get(base_url)
     request.cls.driver = driver
@@ -46,12 +46,16 @@ def setup(request):
 
 @pytest.fixture(scope="function")
 def setup_two(request,):
-    options_two = Options()
-    # options_two.add_argument("--log-level=3")
-    # options_two.add_argument("--headless")
-    # options_two.add_argument("--no-sandbox")
-    # options_two.add_argument("--disable-dev-shm-usage")
-    driver = webdriver.Chrome(options=options_two)
+    options = Options()
+    # options.add_argument("--log-level=3")
+    options.add_argument("--headless")
+    # options.add_argument("--no-sandbox")
+    # options.add_argument("--disable-dev-shm-usage")
+    # driver = webdriver.Chrome(options=options)
+    driver = webdriver.Remote(
+        command_executor="http://selenium-hub:4444/wd/hub",
+        options=options
+    )
     driver.maximize_window()
     driver.get(base_url_2)
     request.cls.driver = driver
