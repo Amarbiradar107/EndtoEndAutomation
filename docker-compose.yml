@@ -6,14 +6,17 @@ services:
     environment:
       - DOCKER_TLS_CERTDIR=/certs
     volumes:
-      - /var/run/docker.sock:/var/run/docker.sock
+      - jenkins-docker-certs:/certs/client
     ports:
       - "2376:2376"
     networks:
       jenkins:
         aliases:
           - docker
-    command: --storage-driver overlay2
+    command:
+      - --host=tcp://0.0.0.0:2376
+      - --host=unix:///var/run/docker.sock
+      - --storage-driver=overlay2
 
   my-jenkins:
 
@@ -34,6 +37,8 @@ services:
       - "50000:50000"
     networks:
       - jenkins
+    depends_on:
+      - jenkins-docker
 
   selenium-hub:
     image: selenium/hub:4.41.0
