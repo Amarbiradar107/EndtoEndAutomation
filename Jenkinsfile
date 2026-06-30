@@ -21,10 +21,10 @@ pipeline {
                 docker rm -f jenkins-docker my-jenkins-2 selenium-pytest >nul 2>&1
 
                 echo ===== Stopping previous compose stack =====
-                docker-compose down
+                docker compose down
 
                 echo ===== Starting test execution =====
-                docker-compose up
+                docker compose up
 
                 '''
             }
